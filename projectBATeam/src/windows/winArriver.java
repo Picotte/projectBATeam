@@ -12,12 +12,17 @@ import javax.swing.Box;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import controleurs.ctrlArrive;;
 
 public class winArriver extends winHeritage {
 
@@ -35,6 +40,8 @@ public class winArriver extends winHeritage {
 	private JTextField textFieldClientNoReserv;
 	private JTextField textFieldNomReserv;
 	private JScrollPane scrollPaneZoneN;
+	private winArriver instance;
+	private ctrlArrive ctrlArr = null;
 
 	/**
 	 * Launch the application.
@@ -56,7 +63,102 @@ public class winArriver extends winHeritage {
 	 * Create the frame.
 	 */
 	public winArriver() {
+		instance = this;
+		ctrlArr = new ctrlArrive(instance);
+		Setup();
 		
+		
+		
+		/*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);*/
+		
+		
+		/*BOUTON*/
+		btnQuitter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				winPrincipale fenPrincipale = new winPrincipale();
+	     		fenPrincipale.setVisible(true);
+				winArriver.this.dispose();			
+			}
+		});
+		
+		btnEnregistrer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnConsulter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnSupprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnAjouter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		mnQuitter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				winPrincipale fenPrincipale = new winPrincipale();
+	     		fenPrincipale.setVisible(true);
+				winArriver.this.dispose();			
+				}
+		});		
+		mnRapports.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		mnListes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		mnEntretien.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+	}
+	
+	private void Setup(){
 		JPanel panelClient = new JPanel();
 		panelClient.setBackground(SystemColor.windowBorder);
 		panelClient.setBounds(176, 88, 469, 280);
@@ -189,12 +291,30 @@ public class winArriver extends winHeritage {
 		scrollPaneZoneN.setBounds(176, 392, 938, 235);
 		getContentPane().add(scrollPaneZoneN);
 		
-		/*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);*/
+		btnPremier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlArr.Premier(instance);
+			}
+		});
+		btnPrecedent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlArr.BonPrecedent(instance);
+			}
+		});
+		btnDernier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlArr.Dernier(instance);
+			}
+		});
+		btnSuivant.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlArr.BonSuivant(instance);
+			}
+		});
 	}
 	
 	public JTextField getTxtClientNo(){
@@ -225,7 +345,6 @@ public class winArriver extends winHeritage {
 		return this.textFieldNoReser;
 	}
 	
-	
 	public JTextField getTxtReservLe(){
 		return this.textFieldReservLe;
 	}
@@ -246,7 +365,6 @@ public class winArriver extends winHeritage {
 		return this.textFieldNomReserv;
 	}
 	
-	
 	public void setScrollPane(JTable UneTable)
 	{
 	
@@ -257,4 +375,5 @@ public class winArriver extends winHeritage {
 		   }
 		scrollPaneZoneN.setViewportView(UneTable);
 	}
+	
 }

@@ -1,0 +1,12 @@
+drop table CLIENT cascade constraints;
+drop table COMMODITE cascade constraints;
+drop table LOCALISATION cascade constraints;
+drop table RESERVATION cascade constraints;
+drop table TYPECHAM cascade constraints;
+drop table CHAMBRE cascade constraints;
+drop table DEPART cascade constraints;
+drop table DE cascade constraints;
+drop table AYANT cascade constraints;
+drop table TYPTRX cascade constraints;
+drop table TRX cascade constraints;
+drop table ARRIVE cascade constraints;
