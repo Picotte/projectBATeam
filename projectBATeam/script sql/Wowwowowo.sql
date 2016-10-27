@@ -28,7 +28,7 @@ Select viewArriver.NoArrive , viewArriver.IdReser, viewArriver.IdCli, viewArrive
   From VIEWDE
   Where VIEWDE.IDRESER = 1;
 */
-create or replace view viewDepart as
+/*create or replace view viewDepart as
 SELECT d.NoDepart, d.IdCli, c.Nom, c.Adresse, c.Telephone, c.Fax, c.TypeCarte, d.IdReser, r.dateReser, r.dateDebut, r.dateFin, d.ConfirmePar 
 FROM EQU03prg01.CLIENT c, EQU03prg01.DEPART d, EQU03prg01.RESERVATION r
 WHERE d.IdCli = c.IdCli and d.IdReser = r.IdReser;
@@ -44,4 +44,22 @@ SELECT NoDepart, IdCli, Nom, Adresse, Telephone, Fax,TypeCarte, IdReser, dateRes
 
 SELECT v.NoCham, v.IdCli, v.Nom, v.DATEDEPART
 FROM EQU03prg01.viewListeDepart v
-WHERE v.IdReser = 10;
+WHERE v.IdReser = 10;*/
+
+
+CREATE OR REPLACE PROCEDURE INSERT_ARRIVER (IdReser integer, IdCli integer, NoCham varchar2) AS 
+BEGIN
+  INSERT INTO ARRIVE VALUES(SEQ_ARRIVE.nextval, INSERT_ARRIVER.IdReser, INSERT_ARRIVER.IDCLI, INSERT_ARRIVER.NOCHAM, sysDate);
+  UPDATE DE SET ATTRIBUEE = 1 WHERE NOCHAM = INSERT_ARRIVER.NOCHAM;
+END INSERT_ARRIVER;
+
+
+
+
+
+
+
+
+
+
+

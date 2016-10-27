@@ -9,7 +9,6 @@ import javax.sound.sampled.DataLine;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import windows.winArriver;
-import windows.winChambre;
 import windows.winPickList;
 import modeles.Model;
 import modeles.ProcsE03;
