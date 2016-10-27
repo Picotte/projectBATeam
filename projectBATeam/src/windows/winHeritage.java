@@ -24,8 +24,6 @@ public abstract class winHeritage extends JFrame {
 	protected JMenu mnRapports;
 	protected JMenu mnQuitter;
 	protected JMenuItem mnItemListeDesBons;
-	
-	
 
 	
 	protected JPanel panelHeritage;
@@ -40,8 +38,7 @@ public abstract class winHeritage extends JFrame {
 	protected JButton btnModifier;
 	protected JButton btnQuitter;
 	protected JButton btnEnregistrer;
-
-
+	
 	
 
 	/**
