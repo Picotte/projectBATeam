@@ -1,5 +1,12 @@
 package modeles;
 
+
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+
+public class Model extends AbstractTableModel{
+	
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +17,7 @@ import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 
 public class Model extends AbstractTableModel{
+
 	private static final long serialVersionUID = 1L;
 	private ArrayList<ArrayList<Object>> data;
 	private ArrayList<String> columnTitle;
@@ -80,4 +88,8 @@ public class Model extends AbstractTableModel{
 	public Object getValueAt(int rowIndex, int columnIndex) {return data.get(rowIndex).get(columnIndex);}
 	public ArrayList<String> columnTitle(){return columnTitle;}
 	public ArrayList<ArrayList<Object>> data(){return data;}
+
+	}
+
 }
+
