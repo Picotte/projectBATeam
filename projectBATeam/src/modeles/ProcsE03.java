@@ -1,5 +1,7 @@
 package modeles;
 import java.util.ArrayList;
+
+import utils.Procedure;
 import utils.Query;
 
 public final class ProcsE03 {
@@ -10,9 +12,10 @@ public final class ProcsE03 {
 	private static Query SELECT_DEPART = new Query("SELECT NoDepart, IdCli, Nom, Adresse, Telephone, Fax, TypeCarte, IdReser, dateReser, dateDebut, dateFin, ConfirmePar FROM EQU03prg01.viewDepart");
 	private static Query SELECT_LISTEDEPART = new Query("SELECT v.IdReser, v.NoCham, v.IdCli, v.Nom, v.dateDepart FROM EQU03prg01.viewListeDepart v WHERE v.IdReser = ?");
 	private static Query SELECT_PK_CLIENT = new Query("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.Fax FROM EQU03prg01.CLIENT c Where c.IdCli not in (Select a.IdCli from EQU03prg01.Arrive a)");
+	//Modifier la PK reservation pour date de fin <= today >= date de debut
 	private static Query SELECT_PK_RESERVATION = new Query("SELECT  r.IdReser, r.IdCli, c.Nom, r.dateReser, r.dateDebut, r.dateFin from EQU03prg01.RESERVATION r, EQU03prg01.CLIENT c Where r.IdCli = c.IdCli and r.IdReser in (Select d.IdReser from EQU03prg01.DE d Where d.ATTRIBUEE != 1)");
 	private static Query SELECT_DE_MODE_AJOUT = new Query("SELECT d.NOCHAM, ch.CODTYPCHA, ch.PRIX, d.ATTRIBUEE FROM EQU03prg01.DE d, EQU03prg01.CHAMBRE ch WHERE d.NoCham = ch.NoCham and d.IdReser = ? and d.ATTRIBUEE != 1");
-	private static Query INSERT_ARRIVE = new Query("call EQU03prg01.INSERT_ARRIVER(?,?,?)");
+	private static Procedure INSERT_ARRIVE = new Procedure("call EQU03prg01.INSERT_ARRIVER(?,?,?)");
 	
 	/**
 	 * @return le model des arriver dans lordre suivant:
@@ -22,7 +25,9 @@ public final class ProcsE03 {
 		return SELECT_ARRIVE.execute();
 	}
 	
-	
+	public static boolean INSERT_ARRIVE(){
+		
+	}
 	
 	/**
 	 * @param IdReser
