@@ -1,27 +1,27 @@
 package windows;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import controleurs.ctrlConnexion;
 import elementsGraphiques.Images.btnOption;
 import elementsGraphiques.Images.police;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class winConnexion extends JDialog {
 
@@ -45,7 +45,7 @@ public class winConnexion extends JDialog {
 					winConnexion tmp = new winConnexion(); 
 					 tmp.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		});
@@ -80,7 +80,7 @@ public class winConnexion extends JDialog {
 		//btnOption est une classe personnalisée du projet dant
 		//le packagae elementsGraphiques
 		btnOption btnAnnuler= new btnOption("Annuler");
-		btnAnnuler.addMouseListener(new MouseAdapter() {
+	btnAnnuler.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {

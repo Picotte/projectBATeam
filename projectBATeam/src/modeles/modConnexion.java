@@ -45,7 +45,7 @@ public final class modConnexion {
 						}
 					catch(SQLException e)
 						{
-						//	JOptionPane.showMessageDialog(null,  e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null,  e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
 							ok = false;
 						}
 				}

@@ -21,9 +21,9 @@ public class ctrlConnexion {
 		
 	    try {
 	       
-	  	    modConnexion.getInstance().connexion(nomUsager,mdp);   	
+	  	    modConnexion.getInstance().connexion("EQU03PRG03","j11254");   	
 	       	
-	       	testConnexion();
+	       	//testConnexion();
 	       	
 	       	fenetre.dispose();
 	        
@@ -36,6 +36,7 @@ public class ctrlConnexion {
 	    catch (Exception e) 
 	    	{
 	    		e.printStackTrace();
+	    	//System.out.println(e.getMessage());
 	     	JOptionPane.showMessageDialog(null, "Information inexistante", "Désolé", JOptionPane.WARNING_MESSAGE);
 	    	}
 	    
@@ -60,14 +61,14 @@ private static void testConnexion() throws SQLException
     String vCode = "";
 	String vNom = "";
 	
-	PreparedStatement prepare = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT * FROM FJEAN.DM_ACH");
+	PreparedStatement prepare = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("Select viewArriver.NoArrive from EQU03prg01.viewArriver");
   	jeuEnreg = prepare.executeQuery();
 	
   	while (jeuEnreg.next())
 		{
 			vCode = jeuEnreg.getString(1);
-			vNom = jeuEnreg.getString(2);
-			//System.out.println(" " +vCode + "  " + vNom);
+			//vNom = jeuEnreg.getString(2);
+			System.out.println(" " +vCode);
 		}
 	
 }
