@@ -145,7 +145,6 @@ public class ctrlChambre {
 	public void validationChambre(winChambre instance)
 	{
 		ArrayList<String> errors = new ArrayList<String>();
-		ArrayList<String> values = new ArrayList<String>();
 		
 		patternNoCham = Pattern.compile("^\\d{1,3}$");
 		patternEtage = Pattern.compile("^\\d{1,2}$");
@@ -202,39 +201,27 @@ public class ctrlChambre {
         {
         	System.out.println("j'ai aucune erreure");
         	
-            values.add(instance.getTxtNoChambre().getText());
-            values.add(instance.getTxtEtage().getText());
-            values.add(instance.getTxtPrix().getText());
+        	ArrayList<String> values = new ArrayList<String>();
+			values.add( instance.getTxtNoChambre().getText() );
+			values.add( instance.getTxtEtage().getText() );
+			values.add(instance.getTxtPrix().getText());
 			if(instance.chckbxEnEtat.isSelected())
-			{
 				values.add("1");
-			}
-			if(instance.chckbxHorsDusage.isSelected())
-			{
+			else
 				values.add("0");
-			}
-            values.add(instance.getTxtCodTypeCha().getText());
-            values.add(instance.getTxtCodLoc().getText());
-            values.add(instance.getTxtMemo().getText());
+			values.add( instance.getTxtCodTypeCha().getText());
+			values.add( instance.getTxtCodLoc().getText());
+			values.add( instance.getTxtMemo().getText());
         	JOptionPane.showMessageDialog(null, values, "Champs validé",JOptionPane.WARNING_MESSAGE);
         	
         	boolean succes = true;
 			
-			ProcsE02.INSERT_CHAMBRE(values);
-			
+			if(!ProcsE02.INSERT_CHAMBRE(values))
+				succes = false;
 			for(int i = 0; i < newChambreCodCom.getRowCount() ; i++)
-			{
-				ProcsE02.INSERT_AYANT(new ArrayList<String>(Arrays.asList(instance.getTxtNoChambre().getText(),newChambreCodCom.getValueAt(i,0).toString())));
-			}
+				if(!ProcsE02.INSERT_AYANT(new ArrayList<String>(Arrays.asList(instance.getTxtNoChambre().getText(),newChambreCodCom.getValueAt(i,0).toString()))))
+					succes = false;
 		//resultat
-	        if(modValide.contains(instance.getTxtNoChambre().getText(), 0)) {
-	        	succes = true;
-	        }
-	        else{
-	        	succes = false;
-	        }
-
-			
 			if(succes)
 			{
 				JOptionPane.showMessageDialog(instance,"Ajout reussie");
@@ -244,6 +231,9 @@ public class ctrlChambre {
 			{
 				JOptionPane.showMessageDialog(instance,"Ajout echoue veuillez contacter l equipe de support");
 			}
+
+			
+
         }
         else
         {

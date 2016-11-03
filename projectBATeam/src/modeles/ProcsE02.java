@@ -1,6 +1,8 @@
 package modeles;
 
 import java.util.ArrayList;
+
+import utils.Procedure;
 import utils.Query;
 
 public final class ProcsE02 {
@@ -10,8 +12,8 @@ public final class ProcsE02 {
 	private static Query SELECT_CHAMBRE = new Query("SELECT EQU03PRG01.CHAMBRE.NOCHAM,EQU03PRG01.CHAMBRE.ETAGE,EQU03PRG01.CHAMBRE.PRIX,EQU03PRG01.CHAMBRE.ETAT,EQU03PRG01.CHAMBRE.MEMO,EQU03PRG01.TYPECHAM.CODTYPCHA,EQU03PRG01.TYPECHAM.DESCTYPE,EQU03PRG01.LOCALISATION.CODLOC,EQU03PRG01.LOCALISATION.DESCLOC FROM EQU03PRG01.CHAMBRE,EQU03PRG01.TYPECHAM,EQU03PRG01.LOCALISATION WHERE EQU03PRG01.CHAMBRE.CODTYPCHA = EQU03PRG01.TYPECHAM.CODTYPCHA AND EQU03PRG01.CHAMBRE.CODLOC = EQU03PRG01.LOCALISATION.CODLOC order by EQU03PRG01.CHAMBRE.NOCHAM");
 	private static Query SELECT_AYANT = new Query("SELECT COMMODITE.CodCom , COMMODITE.DescCom FROM COMMODITE , AYANT where COMMODITE.CodCom = AYANT.CodCom and AYANT.noCham = @noCham");
 	private static Query SELECT_CODCOM = new Query("SELECT EQU03PRG01.COMMODITE.CodCom, EQU03PRG01.COMMODITE.DescCom from EQU03PRG01.COMMODITE");
-	private static Query INSERT_CHAMBRE = new Query("INSERT into EQU03PRG01.CHAMBRE VALUES( ? , ? , ? , ? , ? , ? , ? )");
-	private static Query INSERT_AYANT = new Query("INSERT into EQU03PRG01.AYANT VALUES ( ? , ? )");
+	private static Procedure INSERT_CHAMBRE = new Procedure("INSERT into EQU03PRG01.CHAMBRE VALUES( ? , ? , ? , ? , ? , ? , ? )");
+	private static Procedure INSERT_AYANT = new Procedure("INSERT into EQU03PRG01.AYANT VALUES ( ? , ? )");
 	//private static Query UPDATE_CHAMBRE = new Query("UPDATE INTO EQU03PRG01.CHAMBRE VALUES(?,?,?,?,?,?,?)");
 	//private static Query DELETE_AYANT = new Query(" DELETE EQU03PRG01.AYANT(?)");
 	//private static Query DELETE_CHAMBRE = new Query("DELETE EQU03PRG01.CHAMBRE(?)");
@@ -54,8 +56,7 @@ public final class ProcsE02 {
 	 * @param nocham,etage,prix,etat,codtyp,codloc,memo
 	 * @return true if the procedure succeed
 	 */
-	public static Model INSERT_CHAMBRE(ArrayList<String> sqlParameters){
-		System.out.println(sqlParameters);
+	public static boolean INSERT_CHAMBRE(ArrayList<String> sqlParameters){
 		return INSERT_CHAMBRE.execute(sqlParameters);
 	}
 	
@@ -64,7 +65,7 @@ public final class ProcsE02 {
 	 * @param nocham,codcom
 	 * @return true if the procedure succeed
 	 */
-	public static Model INSERT_AYANT(ArrayList<String> sqlParameters){
+	public static boolean INSERT_AYANT(ArrayList<String> sqlParameters){
 		return INSERT_AYANT.execute( sqlParameters);
 	}
 	
