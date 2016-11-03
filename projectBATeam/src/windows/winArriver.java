@@ -200,7 +200,7 @@ public class winArriver extends winHeritage {
 		btnEnregistrer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				ctrlArr.Enregistrer(instance);
 			}
 		});
 		

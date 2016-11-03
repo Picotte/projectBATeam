@@ -24,6 +24,7 @@ public class ctrlArrive {
 	private int posPkCli = 0;
 	private int posPkReser = 0;
 	private JTable table = null;
+	private Object insertValue[] = new Object[3];
 	
 	public ctrlArrive(winArriver instance){
 		position = 0;
@@ -36,6 +37,7 @@ public class ctrlArrive {
 	
 	private void ModeConsultation(){
 		mode = Mode.CONSULTATION;
+		position = 0;
 		instance.getTextFieldAdresse().setEditable(false);
 		instance.getTextFieldClientNo().setEditable(false);
 		instance.getTextFieldClientNom().setEditable(false);
@@ -92,6 +94,7 @@ public class ctrlArrive {
 	}
 	
 	public void AffecteValeurs(){
+		modArrive = ProcsE03.SELECT_ARRIVE();
 		//SectionArriver	
 		instance.getTextFieldClientNo().setText(modArrive.getValueAt(position, 2).toString());
 		instance.getTextFieldClientNom().setText(modArrive.getValueAt(position, 3).toString());
@@ -130,6 +133,7 @@ public class ctrlArrive {
 				instance.getTextFieldAdresse().setText(modPKCli.getValueAt(posPkCli, 2).toString());
 				instance.getTextFieldTelephone().setText(modPKCli.getValueAt(posPkCli, 3).toString());
 				instance.getTextFieldFax().setText(modPKCli.getValueAt(posPkCli, 4).toString());
+				insertValue[1] = modPKCli.getValueAt(posPkCli, 0);
 				valid[1] = true;
 			}
 			else{
@@ -149,7 +153,7 @@ public class ctrlArrive {
 			instance.getTextFieldReservLe().setText(modPKReser.getValueAt(posPkReser, 3).toString());
 			instance.getTextFieldDateDebut().setText(modPKReser.getValueAt(posPkReser, 4).toString());
 			instance.getTextFieldDateFin().setText(modPKReser.getValueAt(posPkReser, 5).toString());
-			
+			insertValue[0] = modPKReser.getValueAt(posPkReser, 0);
 			
 			Model modDeAjout = ProcsE03.SELECT_DE_MODE_AJOUT(modPKReser.getValueAt(posPkReser, 0).toString());
 			table = new JTable(modDeAjout);
@@ -161,6 +165,7 @@ public class ctrlArrive {
 		  			
 		  			if(valid[1]){
 		  				instance.getTextFieldNumeroChambre().setText(modDeAjout.getValueAt(table.getSelectedRow(),0).toString());
+		  				insertValue[2] = modDeAjout.getValueAt(table.getSelectedRow(),0);
 		  				valid[2] = true;
 		  				if(valid[0] && valid[1] && valid[2])
 		  					instance.getBtnEnregistrer().setEnabled(true);
@@ -179,7 +184,10 @@ public class ctrlArrive {
 	public void Enregistrer(winArriver instance){
 		ValidInstance(instance);
 		if(mode == Mode.AJOUT){
-			
+			if(ProcsE03.INSERT_ARRIVE(insertValue[0], insertValue[1], insertValue[2])){
+				JOptionPane.showMessageDialog(null, "INSERT DONE", "Accepter",JOptionPane.INFORMATION_MESSAGE);
+			}
+			ModeConsultation();
 		}
 	}
 	

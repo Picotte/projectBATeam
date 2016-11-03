@@ -1,5 +1,4 @@
 package modeles;
-import java.util.ArrayList;
 
 import utils.Procedure;
 import utils.Query;
@@ -7,7 +6,7 @@ import utils.Query;
 public final class ProcsE03 {
 	
 	private static Query SELECT_ARRIVE = new Query("Select viewArriver.NoArrive , viewArriver.IdReser as IdR, viewArriver.IdCli , viewArriver.Nom, viewArriver.NoCham, viewArriver.Telephone, viewArriver.Fax, viewArriver.Adresse, viewArriverReservation.IdReser, viewArriverReservation.dateReser, viewArriverReservation.dateDebut, viewArriverReservation.dateFin, viewArriverReservation.IdCli as IdCliR, viewArriverReservation.Nom as NomR FROM EQU03prg01.viewArriver, EQU03prg01.viewArriverReservation where viewArriverReservation.IdReser = viewArriver.IdReser");
-	private static Query SELECT_DE = new Query("SELECT VIEWDE.NOCHAM, VIEWDE.CODTYPCHA, VIEWDE.PRIX, VIEWDE.ATTRIBUEE FROM EQU03PRG01.VIEWDE WHERE VIEWDE.IDRESER = ?");
+	private static Query SELECT_DE = new Query("SELECT NOCHAM, CODTYPCHA, PRIX, ATTRIBUEE FROM EQU03PRG01.VIEWDE WHERE IDRESER = ?");
 	private static Query SELECT_PK_ARRIVE = new Query("SELECT viewArriver.IdReser as NoReser, viewArriver.IdCli as NoCli, viewArriver.Nom as Nom, viewArriver.NoCham as NoCham FROM EQU03prg01.viewArriver");
 	private static Query SELECT_DEPART = new Query("SELECT NoDepart, IdCli, Nom, Adresse, Telephone, Fax, TypeCarte, IdReser, dateReser, dateDebut, dateFin, ConfirmePar FROM EQU03prg01.viewDepart");
 	private static Query SELECT_LISTEDEPART = new Query("SELECT v.IdReser, v.NoCham, v.IdCli, v.Nom, v.dateDepart FROM EQU03prg01.viewListeDepart v WHERE v.IdReser = ?");
@@ -25,8 +24,8 @@ public final class ProcsE03 {
 		return SELECT_ARRIVE.execute();
 	}
 	
-	public static boolean INSERT_ARRIVE(){
-		
+	public static boolean INSERT_ARRIVE(Object insertValue, Object insertValue2, Object insertValue3){
+		return INSERT_ARRIVE.execute(insertValue, insertValue2, insertValue3);
 	}
 	
 	/**
