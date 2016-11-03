@@ -200,14 +200,14 @@ public class winArriver extends winHeritage {
 		btnEnregistrer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.Enregistrer(instance);
+				ctrlArr.enregistrer(instance);
 			}
 		});
 		
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.Annuler(instance);
+				ctrlArr.annuler(instance);
 			}
 		});
 		
@@ -401,51 +401,51 @@ public class winArriver extends winHeritage {
 		
 		btnPickList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ctrlArr.PkArriver(instance);
+				ctrlArr.pkArriver(instance);
 			}
 		});
 		
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
-				ctrlArr.Ajouter(instance);
+				ctrlArr.ajouter(instance);
 			}
 		});
 		
 		btnPremier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.Premier(instance);
+				ctrlArr.premier(instance);
 			}
 		});
 		btnPrecedent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.BonPrecedent(instance);
+				ctrlArr.precedent(instance);
 			}
 		});
 		btnDernier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.Dernier(instance);
+				ctrlArr.dernier(instance);
 			}
 		});
 		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.BonSuivant(instance);
+				ctrlArr.suivant(instance);
 			}
 		});
 		textFieldClientNo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.PkClient(instance);
+				ctrlArr.pkClient(instance);
 			}
 		});
 		textFieldNoReser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.PkReservation(instance);
+				ctrlArr.pkReservation(instance);
 			}
 		});
 	}

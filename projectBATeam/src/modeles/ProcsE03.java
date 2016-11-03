@@ -14,7 +14,7 @@ public final class ProcsE03 {
 	//Modifier la PK reservation pour date de fin <= today >= date de debut
 	private static Query SELECT_PK_RESERVATION = new Query("SELECT  r.IdReser, r.IdCli, c.Nom, r.dateReser, r.dateDebut, r.dateFin from EQU03prg01.RESERVATION r, EQU03prg01.CLIENT c Where r.IdCli = c.IdCli and r.IdReser in (Select d.IdReser from EQU03prg01.DE d Where d.ATTRIBUEE != 1)");
 	private static Query SELECT_DE_MODE_AJOUT = new Query("SELECT d.NOCHAM, ch.CODTYPCHA, ch.PRIX, d.ATTRIBUEE FROM EQU03prg01.DE d, EQU03prg01.CHAMBRE ch WHERE d.NoCham = ch.NoCham and d.IdReser = ? and d.ATTRIBUEE != 1");
-	private static Procedure INSERT_ARRIVE = new Procedure("call EQU03prg01.INSERT_ARRIVER(?,?,?)");
+	private static Procedure INSERT_ARRIVE = new Procedure("call EQU03PRG01.INSERT_ARRIVER(?,?,?)");
 	
 	/**
 	 * @return le model des arriver dans lordre suivant:

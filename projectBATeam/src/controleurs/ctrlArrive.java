@@ -27,15 +27,14 @@ public class ctrlArrive {
 	private Object insertValue[] = new Object[3];
 	
 	public ctrlArrive(winArriver instance){
-		position = 0;
 		modArrive = ProcsE03.SELECT_ARRIVE();
-		ValidInstance(instance);
-		ModeConsultation();
-		AffecteValeurs();
+		validInstance(instance);
+		modeConsultation();
+		affecteValeurs();
 	}
 	
 	
-	private void ModeConsultation(){
+	private void modeConsultation(){
 		mode = Mode.CONSULTATION;
 		position = 0;
 		instance.getTextFieldAdresse().setEditable(false);
@@ -62,7 +61,7 @@ public class ctrlArrive {
 		instance.getBtnSuivant().setEnabled(true);
 	}
 	
-	private void ModeAjout(){
+	private void modeAjout(){
 		mode = Mode.AJOUT;
 		instance.getTextFieldAdresse().setText("");
 		instance.getTextFieldClientNo().setText("");
@@ -93,7 +92,11 @@ public class ctrlArrive {
 		instance.setScrollPane(null);
 	}
 	
-	public void AffecteValeurs(){
+	private void modeModification(){
+		mode = Mode.MODIFICATION;
+	}
+	
+	public void affecteValeurs(){
 		modArrive = ProcsE03.SELECT_ARRIVE();
 		//SectionArriver	
 		instance.getTextFieldClientNo().setText(modArrive.getValueAt(position, 2).toString());
@@ -111,21 +114,21 @@ public class ctrlArrive {
 		
 		//Section N
 		//System.out.println(modArrive.getValueAt(ligne, 7));
-		modDe = ProcsE03.SELECT_DE(modArrive.getValueAt(position, 0).toString());
+		modDe = ProcsE03.SELECT_DE(modArrive.getValueAt(position, 1).toString());
 		winArriver.setScrollPane(new JTable(modDe));
 		
 	}
 	
-	public void Annuler(winArriver instance){
-		ValidInstance(instance);
-		ModeConsultation();
-		AffecteValeurs();
+	public void annuler(winArriver instance){
+		validInstance(instance);
+		modeConsultation();
+		affecteValeurs();
 	}
 	
-	public void PkClient(winArriver instance){
+	public void pkClient(winArriver instance){
 		if(mode == Mode.AJOUT){
 			if(valid[0]){
-				ValidInstance(instance);
+				validInstance(instance);
 				posPkCli = winPickList.pickFromTable(ProcsE03.SELECT_PK_CLIENT(), "Liste des clients");
 				Model modPKCli = ProcsE03.SELECT_PK_CLIENT();
 				instance.getTextFieldClientNo().setText(modPKCli.getValueAt(posPkCli, 0).toString());
@@ -142,8 +145,8 @@ public class ctrlArrive {
 		}
 	}
 	
-	public void PkReservation(winArriver instance){
-		ValidInstance(instance);
+	public void pkReservation(winArriver instance){
+		validInstance(instance);
 		if(mode == Mode.AJOUT){
 			posPkReser = winPickList.pickFromTable(ProcsE03.SELECT_PK_RESERVATION(), "Liste des reservations");
 			Model modPKReser = ProcsE03.SELECT_PK_RESERVATION();
@@ -181,59 +184,64 @@ public class ctrlArrive {
 		
 	}
 	
-	public void Enregistrer(winArriver instance){
-		ValidInstance(instance);
+	public void enregistrer(winArriver instance){
+		validInstance(instance);
 		if(mode == Mode.AJOUT){
 			if(ProcsE03.INSERT_ARRIVE(insertValue[0], insertValue[1], insertValue[2])){
 				JOptionPane.showMessageDialog(null, "INSERT DONE", "Accepter",JOptionPane.INFORMATION_MESSAGE);
+				modeConsultation();
+				affecteValeurs();
+				valid[0] = false;
+				valid[1] = false;
+				valid[2] = false;
 			}
-			ModeConsultation();
+			
 		}
 	}
 	
-	private void ValidInstance(winArriver instance){
+	private void validInstance(winArriver instance){
 		if(this.instance == null)
 			this.instance = instance;
 	}
 	
-	public void Ajouter(winArriver instance){
-		ValidInstance(instance);
-		ModeAjout();
+	public void ajouter(winArriver instance){
+		validInstance(instance);
+		modeAjout();
 	}
 	
-	public void PkArriver(winArriver instance){
-		ValidInstance(instance);
+	public void pkArriver(winArriver instance){
+		validInstance(instance);
 		if(mode == Mode.CONSULTATION){
 			position = winPickList.pickFromTable(ProcsE03.SELECT_PK_ARRIVE(),"listes des arrive");
-			AffecteValeurs();	
+			affecteValeurs();	
 		}
 	}
 	
-	public void Premier(winArriver instance) {
-		ValidInstance(instance);
+	public void premier(winArriver instance) {
+		validInstance(instance);
 		position = 0;
-	    AffecteValeurs();		
+	    affecteValeurs();		
 	}
 	
-	public void BonPrecedent(winArriver instance) {
-		ValidInstance(instance);
+	public void precedent(winArriver instance) {
+		validInstance(instance);
 		if (position> 0)
 			position--;
 		else position = modArrive.getRowCount() - 1;
 
-		AffecteValeurs();	
+		affecteValeurs();	
 	}
-	public void Dernier(winArriver instance) {
-		ValidInstance(instance);
+	public void dernier(winArriver instance) {
+		validInstance(instance);
 		position = modArrive.getRowCount() - 1;
-	    AffecteValeurs();		
+	    affecteValeurs();		
 	}
-	public void BonSuivant(winArriver instance) {
-		ValidInstance(instance);
+	public void suivant(winArriver instance) {
+		validInstance(instance);
 		if (position < modArrive.getRowCount() - 1)
 			 position++;
 		else position = 0;
 		
-		AffecteValeurs();		
+		affecteValeurs();		
 	}
 }
