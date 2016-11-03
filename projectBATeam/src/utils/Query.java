@@ -14,18 +14,31 @@ import modeles.Model;
 public class Query {
 	private final DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 	private String query;
+	
 	public Query(String statement){
 		this.query = statement;
+		
 	}
 
 	public Model execute(Object... params){
+		ArrayList<Object> list;
 		try {    
 			Model model = new Model();
 			PreparedStatement state = modConnexion.getInstance().getLaConnectionStatique().prepareStatement(query);
 			int paramIndex = 1;
 			for(Object param:params){
-				state.setObject(paramIndex , param);
-				paramIndex++;
+				if(param.getClass() == ArrayList.class){
+					list = (ArrayList<Object>) param;
+					for(Object o:list){
+						state.setObject(paramIndex , o);
+						paramIndex++;
+					}
+				}
+				else{
+					state.setObject(paramIndex , param);
+					paramIndex++;
+				}
+				
 			}
 
 			ResultSet rs = state.executeQuery();

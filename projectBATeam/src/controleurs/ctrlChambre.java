@@ -41,6 +41,7 @@ public class ctrlChambre {
 	public ctrlChambre(winChambre instance) {
 		
 		modValide = ProcsE02.SELECT_CHAMBRE();
+		newChambreCodCom = ProcsE02.SELECT_CODCOM();
 		modeleChambre = new modChambre();	
 		AffecteValeurs(instance,position);
 
@@ -251,7 +252,6 @@ public class ctrlChambre {
 	}
 	public void setAjout() 
 	{
-		newChambreCodCom = ProcsE02.SELECT_CODCOM();
 		newChambreCodCom.empty();		
 	}
 	public void addCodCom(){

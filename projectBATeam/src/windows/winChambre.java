@@ -126,8 +126,8 @@ public class winChambre extends winHeritage {
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				leControllerChambre.setAjout();
 				ModeAjout();
+				leControllerChambre.setAjout();
 			}
 		});
 		
