@@ -14,24 +14,14 @@ public class Procedure {
 		this.statement = statement;
 	}
 	
-	public boolean execute(ArrayList<String> sqlParameters){
+	public boolean execute(Object... params){
 		try {    
 			CallableStatement  query = modConnexion.getInstance().getLaConnectionStatique().prepareCall(statement);
-			for(int i = 0 ; i < sqlParameters.size() ;i++)
-				query.setObject(i + 1 , sqlParameters.get(i));
-			query.executeUpdate();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println("problem with this statement : " + statement);
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean execute(String param){
-		try {    
-			CallableStatement  query = modConnexion.getInstance().getLaConnectionStatique().prepareCall(statement);
-				query.setObject(1, param);
+			int paramIndex = 1;
+			for(Object param:params){
+				query.setObject(paramIndex , param);
+				paramIndex++;
+			}
 			query.executeUpdate();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
