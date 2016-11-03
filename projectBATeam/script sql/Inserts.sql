@@ -1,4 +1,4 @@
-/*ceci est pour l'osti de sourcetree*/
+/*ceci est pour l'osti de sourcetree */
 /*OK*/
 DELETE EQU03PRG01.CLIENT;
 INSERT INTO EQU03PRG01.CLIENT VALUES (SEQ_CLIENT.NEXTVAL, 'Benjamin Couvrette', '155 4e Ave Grand-Mère', '5555551111', '1111111111111111', 'Visa', '08/04/90', '5551111111', 149.95);
