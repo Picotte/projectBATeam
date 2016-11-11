@@ -136,13 +136,17 @@ public class ctrlArrive {
 			table.addMouseListener(new MouseAdapter() {
 		  		@Override
 		  		public void mousePressed(MouseEvent e) {
-		  			
+		  			if(modDe.getValueAt(table.getSelectedRow(), 3) == "0"){
 			  			updateValue = modDe.getValueAt(table.getSelectedRow(), 0);
 			  			
 			  			instance.getTextFieldNumeroChambre().setText(modDe.getValueAt(table.getSelectedRow(), 0).toString());
-			  			if(valid[0])
-		  					instance.getBtnEnregistrer().setEnabled(true);
-		  			
+			  			
+		  				instance.getBtnEnregistrer().setEnabled(true);
+		  			}
+		  			else{
+		  				System.out.println(modDe.getValueAt(table.getSelectedRow(), 3));
+		  				JOptionPane.showMessageDialog(null, "Veuiller Selectionner une chambre non attribuee", "Désolé",JOptionPane.ERROR_MESSAGE);
+		  			}
 		  		}
 		  	});
 		}
