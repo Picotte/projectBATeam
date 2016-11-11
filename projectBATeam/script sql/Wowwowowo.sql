@@ -53,13 +53,20 @@ BEGIN
   UPDATE DE SET ATTRIBUEE = 1 WHERE NOCHAM = INSERT_ARRIVER.NOCHAM;
 END INSERT_ARRIVER;*/
 
-GRANT EXECUTE on INSERT_ARRIVER to EQU03PRG02, EQU03PRG03;
+/*GRANT EXECUTE on INSERT_ARRIVER to EQU03PRG02, EQU03PRG03;*/
+
+/*CREATE OR REPLACE PROCEDURE UPDATE_ARRIVER (NOARRIVE integer, IDRESER1 integer, NOCHAM1 varchar2, IDRESER2 integer, NOCHAM2 varchar2) AS
+BEGIN
+  UPDATE DE SET ATTRIBUEE = 0 WHERE NOCHAM = UPDATE_ARRIVER.NOCHAM1 and IDRESER = UPDATE_ARRIVER.IDRESER1;
+  UPDATE DE SET ATTRIBUEE = 1 WHERE NOCHAM = UPDATE_ARRIVER.NOCHAM2 and IDRESER = UPDATE_ARRIVER.IDRESER2;
+  UPDATE ARRIVE SET NOCHAM = NOCHAM2 WHERE NOARRIVE = UPDATE_ARRIVER.NOARRIVE;
+END UPDATE_ARRIVER;*/
 
 
+/*GRANT EXECUTE on UPDATE_ARRIVER to EQU03PRG02, EQU03PRG03;*/
 
 
-
-
+Select viewArriver.NoArrive , viewArriver.IdReser as IdR, viewArriver.IdCli , viewArriver.Nom, viewArriver.NoCham, viewArriver.Telephone, viewArriver.Fax, viewArriver.Adresse, viewArriverReservation.IdReser, viewArriverReservation.dateReser, viewArriverReservation.dateDebut, viewArriverReservation.dateFin, viewArriverReservation.IdCli as IdCliR, viewArriverReservation.Nom as NomR FROM EQU03prg01.viewArriver, EQU03prg01.viewArriverReservation where viewArriverReservation.IdReser = viewArriver.IdReser and (viewArriver.IdReser, viewArriver.IdCli, viewArriver.Nocham) not in (SELECT IdReser, IdCli, nocham from EQU03PRG01.depart);
 
 
 

@@ -25,6 +25,7 @@ public class ctrlArrive {
 	private int posPkReser = 0;
 	private JTable table = null;
 	private Object insertValue[] = new Object[3];
+	private Object updateValue;
 	
 	public ctrlArrive(winArriver instance){
 		modArrive = ProcsE03.SELECT_ARRIVE();
@@ -88,16 +89,31 @@ public class ctrlArrive {
 		this.valid[0] = false;
 		this.valid[1] = false;
 		this.valid[2] = false;
+	
 		
 		instance.setScrollPane(null);
 	}
 	
 	private void modeModification(){
 		mode = Mode.MODIFICATION;
+		
+		instance.getBtnConsulter().setEnabled(false);
+		instance.getBtnEnregistrer().setEnabled(false);
+		instance.getBtnAnnuler().setEnabled(false);
+		instance.getBtnAjouter().setEnabled(false);
+		instance.getBtnPickList().setEnabled(true);
+		instance.getBtnPrecedent().setEnabled(true);
+		instance.getBtnPremier().setEnabled(true);
+		instance.getBtnDernier().setEnabled(true);
+		instance.getBtnSuivant().setEnabled(true);
+		
+		this.valid[0] = false;
+		this.valid[1] = false;
+		this.valid[2] = false;
 	}
 	
 	public void affecteValeurs(){
-		modArrive = ProcsE03.SELECT_ARRIVE();
+		
 		//SectionArriver	
 		instance.getTextFieldClientNo().setText(modArrive.getValueAt(position, 2).toString());
 		instance.getTextFieldClientNom().setText(modArrive.getValueAt(position, 3).toString());
@@ -115,9 +131,25 @@ public class ctrlArrive {
 		//Section N
 		//System.out.println(modArrive.getValueAt(ligne, 7));
 		modDe = ProcsE03.SELECT_DE(modArrive.getValueAt(position, 1).toString());
-		winArriver.setScrollPane(new JTable(modDe));
+		table = new JTable(modDe);
+		if(mode == Mode.MODIFICATION){
+			table.addMouseListener(new MouseAdapter() {
+		  		@Override
+		  		public void mousePressed(MouseEvent e) {
+		  			
+			  			updateValue = modDe.getValueAt(table.getSelectedRow(), 0);
+			  			
+			  			instance.getTextFieldNumeroChambre().setText(modDe.getValueAt(table.getSelectedRow(), 0).toString());
+			  			if(valid[0])
+		  					instance.getBtnEnregistrer().setEnabled(true);
+		  			
+		  		}
+		  	});
+		}
+		winArriver.setScrollPane(table);
 		
 	}
+	
 	
 	public void annuler(winArriver instance){
 		validInstance(instance);
@@ -184,18 +216,30 @@ public class ctrlArrive {
 		
 	}
 	
+	
+	
 	public void enregistrer(winArriver instance){
 		validInstance(instance);
 		if(mode == Mode.AJOUT){
 			if(ProcsE03.INSERT_ARRIVE(insertValue[0], insertValue[1], insertValue[2])){
 				JOptionPane.showMessageDialog(null, "INSERT DONE", "Accepter",JOptionPane.INFORMATION_MESSAGE);
 				modeConsultation();
+				modArrive = ProcsE03.SELECT_ARRIVE();
 				affecteValeurs();
 				valid[0] = false;
 				valid[1] = false;
 				valid[2] = false;
+			}	
+		}
+		else if(mode == Mode.MODIFICATION){
+			if(ProcsE03.UPDATE_ARRIVE(modArrive.getValueAt(position, 0), modArrive.getValueAt(position, 1), modArrive.getValueAt(position, 4), modArrive.getValueAt(position, 1), updateValue)){
+				JOptionPane.showMessageDialog(null, "UPDATE DONE", "Accepter",JOptionPane.INFORMATION_MESSAGE);
+				modeConsultation();
+				affecteValeurs();
+				valid[0] = false;
+				valid[1] = false;
+				valid[2] = false;	
 			}
-			
 		}
 	}
 	
@@ -207,6 +251,14 @@ public class ctrlArrive {
 	public void ajouter(winArriver instance){
 		validInstance(instance);
 		modeAjout();
+	}
+	
+	public void modifier(winArriver instance){
+		validInstance(instance);
+		modeModification();
+		modArrive = ProcsE03.SELECT_ARRIVE_MODIF();
+		position = 0;
+		affecteValeurs();
 	}
 	
 	public void pkArriver(winArriver instance){

@@ -15,6 +15,22 @@ public final class ProcsE03 {
 	private static Query SELECT_PK_RESERVATION = new Query("SELECT  r.IdReser, r.IdCli, c.Nom, r.dateReser, r.dateDebut, r.dateFin from EQU03prg01.RESERVATION r, EQU03prg01.CLIENT c Where r.IdCli = c.IdCli and r.IdReser in (Select d.IdReser from EQU03prg01.DE d Where d.ATTRIBUEE != 1)");
 	private static Query SELECT_DE_MODE_AJOUT = new Query("SELECT d.NOCHAM, ch.CODTYPCHA, ch.PRIX, d.ATTRIBUEE FROM EQU03prg01.DE d, EQU03prg01.CHAMBRE ch WHERE d.NoCham = ch.NoCham and d.IdReser = ? and d.ATTRIBUEE != 1");
 	private static Procedure INSERT_ARRIVE = new Procedure("call EQU03PRG01.INSERT_ARRIVER(?,?,?)");
+	private static Procedure UPDATE_ARRIVE = new Procedure("call EQU03PRG01.UPDATE_ARRIVER(?,?,?,?,?)");
+	
+	static Query SELECT_ARRIVE_MODIF = new Query("Select viewArriver.NoArrive , viewArriver.IdReser as IdR, viewArriver.IdCli , viewArriver.Nom, viewArriver.NoCham, viewArriver.Telephone, viewArriver.Fax, viewArriver.Adresse, viewArriverReservation.IdReser, viewArriverReservation.dateReser, viewArriverReservation.dateDebut, viewArriverReservation.dateFin, viewArriverReservation.IdCli as IdCliR, viewArriverReservation.Nom as NomR FROM EQU03prg01.viewArriver, EQU03prg01.viewArriverReservation where viewArriverReservation.IdReser = viewArriver.IdReser and (viewArriver.IdReser, viewArriver.IdCli, viewArriver.Nocham) not in (SELECT IdReser, IdCli, nocham from EQU03PRG01.depart)");
+	
+	/**
+	 * @return le model des arriver dans lordre suivant:
+	 * NoArrive, IdR, IdCli, Nom, NoCham, Telephone, Fax, Adresse, IdReser, dateReser, dateDebut, dateFin, IdCliR, NomR
+	 */
+	public static Model SELECT_ARRIVE_MODIF(){
+		return SELECT_ARRIVE_MODIF.execute();
+	}
+	
+	
+	public static boolean UPDATE_ARRIVE(Object updateValue1, Object updateValue2, Object updateValue3, Object updateValue4, Object updateValue5){
+		return UPDATE_ARRIVE.execute(updateValue1,updateValue2,updateValue3,updateValue4,updateValue5);	
+	}
 	
 	/**
 	 * @return le model des arriver dans lordre suivant:

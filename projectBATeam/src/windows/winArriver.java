@@ -214,7 +214,7 @@ public class winArriver extends winHeritage {
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+				ctrlArr.modifier(instance);
 			}
 		});
 		
