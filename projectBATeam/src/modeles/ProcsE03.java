@@ -10,14 +10,29 @@ public final class ProcsE03 {
 	private static Query SELECT_PK_ARRIVE = new Query("SELECT viewArriver.IdReser as NoReser, viewArriver.IdCli as NoCli, viewArriver.Nom as Nom, viewArriver.NoCham as NoCham FROM EQU03prg01.viewArriver");
 	private static Query SELECT_DEPART = new Query("SELECT NoDepart, IdCli, Nom, Adresse, Telephone, Fax, TypeCarte, IdReser, dateReser, dateDebut, dateFin, ConfirmePar FROM EQU03prg01.viewDepart");
 	private static Query SELECT_LISTEDEPART = new Query("SELECT v.IdReser, v.NoCham, v.IdCli, v.Nom, v.dateDepart FROM EQU03prg01.viewListeDepart v WHERE v.IdReser = ?");
+	private static Query SELECT_PK_DEPART = new Query("SELECT v.IdReser, v.NoCham, v.IdCli, v.Nom, v.dateDepart FROM EQU03prg01.viewListeDepart v");
 	private static Query SELECT_PK_CLIENT = new Query("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.Fax FROM EQU03prg01.CLIENT c Where c.IdCli not in (Select a.IdCli from EQU03prg01.Arrive a)");
 	//Modifier la PK reservation pour date de fin <= today >= date de debut
-	private static Query SELECT_PK_RESERVATION = new Query("SELECT  r.IdReser, r.IdCli, c.Nom, r.dateReser, r.dateDebut, r.dateFin from EQU03prg01.RESERVATION r, EQU03prg01.CLIENT c Where r.IdCli = c.IdCli and r.IdReser in (Select d.IdReser from EQU03prg01.DE d Where d.ATTRIBUEE != 1)");
+	private static Query SELECT_PK_RESERVATION = new Query("SELECT  r.IdReser, r.IdCli, c.Nom, r.dateReser, r.dateDebut, r.dateFin from EQU03prg01.RESERVATION r, EQU03prg01.CLIENT c Where r.IdCli = c.IdCli and r.IdReser in (Select d.IdReser from EQU03prg01.DE d Where d.ATTRIBUEE != 1) and (sysDate between r.DateDebut and r.DateFin)");
 	private static Query SELECT_DE_MODE_AJOUT = new Query("SELECT d.NOCHAM, ch.CODTYPCHA, ch.PRIX, d.ATTRIBUEE FROM EQU03prg01.DE d, EQU03prg01.CHAMBRE ch WHERE d.NoCham = ch.NoCham and d.IdReser = ? and d.ATTRIBUEE != 1");
 	private static Procedure INSERT_ARRIVE = new Procedure("call EQU03PRG01.INSERT_ARRIVER(?,?,?)");
-	private static Procedure UPDATE_ARRIVE = new Procedure("call EQU03PRG01.UPDATE_ARRIVER(?,?,?,?,?)");
+	private static Procedure UPDATE_ARRIVE = new Procedure("call EQU03PRG01.UPDATE_ARRIVER(?,?,?,?,?,?)");
+	private static Procedure DELETE_ARRIVER = new Procedure("call EQU03PRG01.Delete_arriver(?,?,?)");
 	
 	static Query SELECT_ARRIVE_MODIF = new Query("Select viewArriver.NoArrive , viewArriver.IdReser as IdR, viewArriver.IdCli , viewArriver.Nom, viewArriver.NoCham, viewArriver.Telephone, viewArriver.Fax, viewArriver.Adresse, viewArriverReservation.IdReser, viewArriverReservation.dateReser, viewArriverReservation.dateDebut, viewArriverReservation.dateFin, viewArriverReservation.IdCli as IdCliR, viewArriverReservation.Nom as NomR FROM EQU03prg01.viewArriver, EQU03prg01.viewArriverReservation where viewArriverReservation.IdReser = viewArriver.IdReser and (viewArriver.IdReser, viewArriver.IdCli, viewArriver.Nocham) not in (SELECT IdReser, IdCli, nocham from EQU03PRG01.depart)");
+	static Query SELECT_PK_CHAMBRE = new Query("select NoCham, prix, etat, CodTypCha from EQU03PRG01.CHambre where etat = 1 and NoCham not in (Select Nocham from EQU03PRG01.de)");
+	
+	public static boolean DELETE_ARRIVER(Object object, Object object2, Object object3){
+		return DELETE_ARRIVER.execute(object,object2,object3);
+	}
+	
+	public static Model SELECT_PK_DEPART(){
+		return SELECT_PK_DEPART.execute();
+	}
+	
+	public static Model SELECT_PK_CHAMBRE(){
+		return SELECT_PK_CHAMBRE.execute();
+	}
 	
 	/**
 	 * @return le model des arriver dans lordre suivant:
@@ -28,8 +43,8 @@ public final class ProcsE03 {
 	}
 	
 	
-	public static boolean UPDATE_ARRIVE(Object updateValue1, Object updateValue2, Object updateValue3, Object updateValue4, Object updateValue5){
-		return UPDATE_ARRIVE.execute(updateValue1,updateValue2,updateValue3,updateValue4,updateValue5);	
+	public static boolean UPDATE_ARRIVE(Object updateValue1, Object updateValue2, Object updateValue3, Object updateValue4, Object updateValue5, Object updateValue6){
+		return UPDATE_ARRIVE.execute(updateValue1,updateValue2,updateValue3,updateValue4,updateValue5,updateValue6);	
 	}
 	
 	/**

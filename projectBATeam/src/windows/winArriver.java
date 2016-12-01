@@ -11,6 +11,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,8 +22,11 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 import controleurs.ctrlArrive;
+import utils.Formator;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;;
@@ -37,8 +41,8 @@ public class winArriver extends winHeritage {
 	private JTextField textFieldClientNo;
 	private JTextField textFieldClientNom;
 	private JTextField textFieldAdresse;
-	private JTextField textFieldTelephone;
-	private JTextField textFieldFax;
+	private JFormattedTextField textFieldTelephone;
+	private JFormattedTextField textFieldFax;
 	private JTextField textFieldNumeroChambre;
 	private JTextField textFieldNoReser;
 	private JTextField textFieldReservLe;
@@ -227,7 +231,7 @@ public class winArriver extends winHeritage {
 		btnSupprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+				ctrlArr.supprimer(instance);
 			}
 		});
 		
@@ -300,7 +304,7 @@ public class winArriver extends winHeritage {
 		lblTlphone.setBounds(24, 163, 69, 16);
 		panelClient.add(lblTlphone);
 		
-		textFieldTelephone = new JTextField();
+		textFieldTelephone = new JFormattedTextField(Formator.formating("(###)-###-####"));
 		textFieldTelephone.setBounds(97, 158, 130, 26);
 		panelClient.add(textFieldTelephone);
 		textFieldTelephone.setColumns(10);
@@ -309,12 +313,13 @@ public class winArriver extends winHeritage {
 		lblFax.setBounds(258, 163, 26, 16);
 		panelClient.add(lblFax);
 		
-		textFieldFax = new JTextField();
+		textFieldFax = new JFormattedTextField(Formator.formating("(###)-###-####"));
 		textFieldFax.setBounds(296, 158, 138, 26);
 		panelClient.add(textFieldFax);
 		textFieldFax.setColumns(10);
 		
 		textFieldNumeroChambre = new JTextField();
+		
 		textFieldNumeroChambre.setBounds(156, 218, 130, 26);
 		panelClient.add(textFieldNumeroChambre);
 		textFieldNumeroChambre.setColumns(10);
@@ -398,6 +403,13 @@ public class winArriver extends winHeritage {
 		scrollPaneZoneN = new JScrollPane();
 		scrollPaneZoneN.setBounds(176, 392, 938, 235);
 		getContentPane().add(scrollPaneZoneN);
+		
+		textFieldNumeroChambre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlArr.pkChambre(instance);
+			}
+		});
 		
 		btnPickList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -41,7 +41,10 @@ public class ctrlDepart {
 		winDepart.setScrollPane(new JTable(modListeDepart));
 	}
 	
-	
+	public void pkDepart(winDepart instance){
+		position = winPickList.pickFromTable(ProcsE03.SELECT_PK_DEPART(), "Liste des departs");
+		AffecteValeurs(instance);
+	}
 	
 	
 	public void Premier(winDepart instance) {

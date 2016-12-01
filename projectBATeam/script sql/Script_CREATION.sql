@@ -11,7 +11,7 @@ drop table TYPTRX cascade constraints;
 drop table TRX cascade constraints;
 drop table ARRIVE cascade constraints;
 
---------------------------------------------------------------
+
 --CLIENT
 --------------------------------------------------------------
 --SEQUENCE RESET

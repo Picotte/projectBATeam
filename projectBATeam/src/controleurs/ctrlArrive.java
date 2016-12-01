@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import javax.sound.sampled.DataLine;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.text.MaskFormatter;
+
 import windows.winArriver;
 import windows.winPickList;
 import modeles.Model;
@@ -26,6 +28,7 @@ public class ctrlArrive {
 	private JTable table = null;
 	private Object insertValue[] = new Object[3];
 	private Object updateValue;
+	private int typeOfModif = 1;
 	
 	public ctrlArrive(winArriver instance){
 		modArrive = ProcsE03.SELECT_ARRIVE();
@@ -136,12 +139,13 @@ public class ctrlArrive {
 			table.addMouseListener(new MouseAdapter() {
 		  		@Override
 		  		public void mousePressed(MouseEvent e) {
-		  			if(modDe.getValueAt(table.getSelectedRow(), 3) == "0"){
+		  			if(modDe.getValueAt(table.getSelectedRow(), 3).toString().equals("0")) {
 			  			updateValue = modDe.getValueAt(table.getSelectedRow(), 0);
 			  			
 			  			instance.getTextFieldNumeroChambre().setText(modDe.getValueAt(table.getSelectedRow(), 0).toString());
 			  			
 		  				instance.getBtnEnregistrer().setEnabled(true);
+		  				typeOfModif = 1;
 		  			}
 		  			else{
 		  				System.out.println(modDe.getValueAt(table.getSelectedRow(), 3));
@@ -236,9 +240,10 @@ public class ctrlArrive {
 			}	
 		}
 		else if(mode == Mode.MODIFICATION){
-			if(ProcsE03.UPDATE_ARRIVE(modArrive.getValueAt(position, 0), modArrive.getValueAt(position, 1), modArrive.getValueAt(position, 4), modArrive.getValueAt(position, 1), updateValue)){
+			if(ProcsE03.UPDATE_ARRIVE(modArrive.getValueAt(position, 0), modArrive.getValueAt(position, 1), modArrive.getValueAt(position, 4), modArrive.getValueAt(position, 1), updateValue, typeOfModif)){
 				JOptionPane.showMessageDialog(null, "UPDATE DONE", "Accepter",JOptionPane.INFORMATION_MESSAGE);
 				modeConsultation();
+				modArrive = ProcsE03.SELECT_ARRIVE();
 				affecteValeurs();
 				valid[0] = false;
 				valid[1] = false;
@@ -257,12 +262,53 @@ public class ctrlArrive {
 		modeAjout();
 	}
 	
+	public void pkChambre(winArriver instance){
+		validInstance(instance);
+		if(mode == Mode.MODIFICATION){
+			try{
+				updateValue = ProcsE03.SELECT_PK_CHAMBRE().getValueAt(winPickList.pickFromTable(ProcsE03.SELECT_PK_CHAMBRE(), "Chambre disponible"), 0).toString();
+				instance.getTextFieldNumeroChambre().setText(updateValue.toString());
+				typeOfModif = 2;
+				instance.getBtnEnregistrer().setEnabled(true);
+			}catch(IndexOutOfBoundsException e){
+				
+			}
+		}
+			
+		
+	}
+	
+	public void supprimer(winArriver instance){
+		validInstance(instance);
+		String a = modArrive.getValueAt(position, 0).toString();
+		ProcsE03.DELETE_ARRIVER(modArrive.getValueAt(position, 0), modArrive.getValueAt(position, 1), modArrive.getValueAt(position, 2));
+		modArrive = ProcsE03.SELECT_ARRIVE();
+		position = 0;
+		affecteValeurs();
+		if(a.equals(modArrive.getValueAt(position, 0).toString())){
+			JOptionPane.showMessageDialog(null, "Impossible de supprimer cette entrer", "Refuser",JOptionPane.ERROR_MESSAGE);
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Entrer supprimer", "Accepter",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
 	public void modifier(winArriver instance){
 		validInstance(instance);
 		modeModification();
 		modArrive = ProcsE03.SELECT_ARRIVE_MODIF();
 		position = 0;
-		affecteValeurs();
+		try{
+			affecteValeurs();
+		}catch(IndexOutOfBoundsException e){
+			modeConsultation();
+			modArrive = ProcsE03.SELECT_ARRIVE();
+			affecteValeurs();
+			position = 0;
+			valid[0] = false;
+			valid[1] = false;
+			valid[2] = false;
+		}
 	}
 	
 	public void pkArriver(winArriver instance){
@@ -270,6 +316,10 @@ public class ctrlArrive {
 		if(mode == Mode.CONSULTATION){
 			position = winPickList.pickFromTable(ProcsE03.SELECT_PK_ARRIVE(),"listes des arrive");
 			affecteValeurs();	
+		}
+		else if(mode == Mode.MODIFICATION){
+			position = winPickList.pickFromTable(ProcsE03.SELECT_ARRIVE_MODIF(),"listes des arrive");
+			affecteValeurs();
 		}
 	}
 	

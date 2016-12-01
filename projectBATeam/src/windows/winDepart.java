@@ -20,8 +20,16 @@ import javax.swing.border.EmptyBorder;
 
 import controleurs.ctrlArrive;
 import controleurs.ctrlDepart;
+import utils.Formator;
+
+import javax.swing.JFormattedTextField;
 
 public class winDepart extends winHeritage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 
@@ -54,7 +62,7 @@ public class winDepart extends winHeritage {
 		return textFieldTelephone;
 	}
 
-	public void setTextFieldTelephone(JTextField textFieldTelephone) {
+	public void setTextFieldTelephone(JFormattedTextField textFieldTelephone) {
 		this.textFieldTelephone = textFieldTelephone;
 	}
 
@@ -62,7 +70,7 @@ public class winDepart extends winHeritage {
 		return textFieldFax;
 	}
 
-	public void setTextFieldFax(JTextField textFieldFax) {
+	public void setTextFieldFax(JFormattedTextField textFieldFax) {
 		this.textFieldFax = textFieldFax;
 	}
 
@@ -70,7 +78,7 @@ public class winDepart extends winHeritage {
 		return textFieldTypeCarte;
 	}
 
-	public void setTextFieldTypeCarte(JTextField textFieldTypeCarte) {
+	public void setTextFieldTypeCarte(JFormattedTextField textFieldTypeCarte) {
 		this.textFieldTypeCarte = textFieldTypeCarte;
 	}
 
@@ -125,9 +133,9 @@ public class winDepart extends winHeritage {
 
 	private JTextField textFieldClientNom;
 	private JTextField textFieldAdresse;
-	private JTextField textFieldTelephone;
-	private JTextField textFieldFax;
-	private JTextField textFieldTypeCarte;
+	private JFormattedTextField textFieldTelephone;
+	private JFormattedTextField textFieldFax;
+	private JFormattedTextField textFieldTypeCarte;
 	private JTextField textFieldNoReser;
 	private JTextField textFieldReservLe;
 	private JTextField textFieldDateDebut;
@@ -282,7 +290,7 @@ public class winDepart extends winHeritage {
 		lblTlphone.setBounds(24, 163, 69, 16);
 		panelClient.add(lblTlphone);
 		
-		textFieldTelephone = new JTextField();
+		textFieldTelephone = new JFormattedTextField(Formator.formating("(###)-###-####"));
 		textFieldTelephone.setBounds(97, 158, 130, 26);
 		panelClient.add(textFieldTelephone);
 		textFieldTelephone.setColumns(10);
@@ -291,12 +299,12 @@ public class winDepart extends winHeritage {
 		lblFax.setBounds(258, 163, 26, 16);
 		panelClient.add(lblFax);
 		
-		textFieldFax = new JTextField();
+		textFieldFax = new JFormattedTextField(Formator.formating("(###)-###-####"));
 		textFieldFax.setBounds(296, 158, 138, 26);
 		panelClient.add(textFieldFax);
 		textFieldFax.setColumns(10);
 		
-		textFieldTypeCarte = new JTextField();
+		textFieldTypeCarte = new JFormattedTextField();
 		textFieldTypeCarte.setBounds(127, 218, 170, 26);
 		panelClient.add(textFieldTypeCarte);
 		textFieldTypeCarte.setColumns(10);
@@ -372,10 +380,18 @@ public class winDepart extends winHeritage {
 		scrollPaneZoneN.setBounds(176, 392, 938, 235);
 		getContentPane().add(scrollPaneZoneN);
 		
+		btnSupprimer.setEnabled(false);
+		btnConsulter.setEnabled(false);
+		btnModifier.setEnabled(false);
+		btnEnregistrer.setEnabled(false);
+		btnAnnuler.setEnabled(false);
+		btnAjouter.setEnabled(false);
+		
+		
 		btnPickList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ctrlDepart.PkArriver(instance);
-			}
+				ctrlDepart.pkDepart(instance);
+				}
 		});
 		
 		btnPremier.addMouseListener(new MouseAdapter() {

@@ -27,18 +27,17 @@ public class ctrlConnexion {
 	       	
 	       	fenetre.dispose();
 	        
-	      winPrincipale fendebut = new winPrincipale();
+	        winPrincipale fendebut = new winPrincipale();
 	    //	WinListBons fendebut = new WinListBons();
 	    // 	WinBon fendebut = new WinBon();
 	     	fendebut.setVisible(true);
 	      
-	          	} 
-	    catch (Exception e) 
-	    	{
+	    } 
+	    catch (Exception e) {
 	    		e.printStackTrace();
 	    	//System.out.println(e.getMessage());
 	     	JOptionPane.showMessageDialog(null, "Information inexistante", "Désolé", JOptionPane.WARNING_MESSAGE);
-	    	}
+	    }
 	    
 	  }
 	
