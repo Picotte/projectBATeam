@@ -29,7 +29,8 @@ import utils.Formator;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;;
 
 public class winArriver extends winHeritage {
 
@@ -179,6 +180,8 @@ public class winArriver extends winHeritage {
 	public winArriver() {
 		instance = this;
 		
+		
+		
 		Setup();
 		ctrlArr = new ctrlArrive(instance);
 		
@@ -247,7 +250,7 @@ public class winArriver extends winHeritage {
 		mnRapports.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En construction", "Désolé",JOptionPane.ERROR_MESSAGE);
+				ctrlArr.rapport(instance);
 			}
 		});
 		mnListes.addMouseListener(new MouseAdapter() {
@@ -403,6 +406,9 @@ public class winArriver extends winHeritage {
 		scrollPaneZoneN = new JScrollPane();
 		scrollPaneZoneN.setBounds(176, 392, 938, 235);
 		getContentPane().add(scrollPaneZoneN);
+		
+		
+		
 		
 		textFieldNumeroChambre.addMouseListener(new MouseAdapter() {
 			@Override

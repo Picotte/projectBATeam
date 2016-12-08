@@ -2,19 +2,25 @@ package controleurs;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import javax.sound.sampled.DataLine;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.text.MaskFormatter;
 
 import windows.winArriver;
 import windows.winPickList;
+import modeles.modConnexion;
 import modeles.Model;
 import modeles.ProcsE03;
 import utils.Mode;
+import utils.RapportLaucher;
 
 public class ctrlArrive {
 	private int position = 0;
@@ -29,6 +35,10 @@ public class ctrlArrive {
 	private Object insertValue[] = new Object[3];
 	private Object updateValue;
 	private int typeOfModif = 1;
+	
+	
+	
+	
 	
 	public ctrlArrive(winArriver instance){
 		modArrive = ProcsE03.SELECT_ARRIVE();
@@ -64,6 +74,8 @@ public class ctrlArrive {
 		instance.getBtnDernier().setEnabled(true);
 		instance.getBtnSuivant().setEnabled(true);
 	}
+	
+	
 	
 	private void modeAjout(){
 		mode = Mode.AJOUT;
@@ -321,6 +333,12 @@ public class ctrlArrive {
 			position = winPickList.pickFromTable(ProcsE03.SELECT_ARRIVE_MODIF(),"listes des arrive");
 			affecteValeurs();
 		}
+	}
+	
+	
+	
+	public void rapport(winArriver instance){
+		RapportLaucher.apercu("RapportArrive.jrxml");
 	}
 	
 	public void premier(winArriver instance) {

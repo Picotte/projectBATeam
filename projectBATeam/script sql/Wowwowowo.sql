@@ -4,7 +4,7 @@ BEGIN
   UPDATE DE SET ATTRIBUEE = 0 WHERE NOCHAM = (Select Nocham from EQU03PRG01.arrive where NoArrive = DELETE_ARRIVER.NoArrive) and IDRESER = DELETE_ARRIVER.IDRESER;
 END DELETE_ARRIVER;*/
 
-grant execute on DELETE_ARRIVER to  EQU03PRG02, EQU03PRG03;
+/*grant execute on DELETE_ARRIVER to  EQU03PRG02, EQU03PRG03;*/
 
 /*create or replace view viewArriver as
   Select a.NoArrive, a.IdReser, a.IdCli, c.Nom, c.Adresse, c.Telephone, c.Fax, a.NoCham
@@ -93,3 +93,12 @@ grant execute on Update to EQU03PRG02, EQU03PRG03;*/
 /*select * from equ03prg01.de;
 */
 
+
+select r.Idreser, r.DATERESER, r.DATEDEBUT, r.DATEFIN, nc.NOCHAM, ch.CODTYPCHA, nc.IDCLI, nc.nom
+from reservation r, chambre ch, (select d.IDRESER, d.NOCHAM, nb.nom, nb.IDCLI 
+                                from  de d
+                                full outer join ( select a.NOCHAM, a.IDCLI, a.IDRESER, c.nom  from ARRIVE a, client c
+                                                  where a.IDCLI=c.IDCLI order by a.IDRESER
+                                                ) nb
+                                on d.IDRESER=nb.IDRESER and d.NOCHAM=nb.NOCHAM) nc
+where r.IDRESER=nc.IDRESER and ch.NOCHAM=nc.NOCHAM order by r.idreser, nc.NOCHAM;
