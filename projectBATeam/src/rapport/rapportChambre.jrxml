@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-12-13T12:00:10 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rapportChambre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d226a47d-2b34-418a-bb9e-f6bf92d457a8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rapportPrg02"/>
+	<queryString>
+		<![CDATA[select * from EQU03PRG01.dateRapport,EQU03PRG01.tableRapport ORDER BY EQU03PRG01.tableRapport.codtypcha, EQU03PRG01.tableRapport.nocham]]>
+	</queryString>
+	<field name="DATE1" class="java.sql.Timestamp"/>
+	<field name="DATE2" class="java.sql.Timestamp"/>
+	<field name="DATE3" class="java.sql.Timestamp"/>
+	<field name="DATE4" class="java.sql.Timestamp"/>
+	<field name="DATE5" class="java.sql.Timestamp"/>
+	<field name="DATE6" class="java.sql.Timestamp"/>
+	<field name="DATE7" class="java.sql.Timestamp"/>
+	<field name="NOCHAM" class="java.lang.String"/>
+	<field name="CODTYPCHA" class="java.lang.String"/>
+	<field name="DISPO1" class="java.math.BigDecimal"/>
+	<field name="DISPO2" class="java.math.BigDecimal"/>
+	<field name="DISPO3" class="java.math.BigDecimal"/>
+	<field name="DISPO4" class="java.math.BigDecimal"/>
+	<field name="DISPO5" class="java.math.BigDecimal"/>
+	<field name="DISPO6" class="java.math.BigDecimal"/>
+	<field name="DISPO7" class="java.math.BigDecimal"/>
+	<group name="CODTYPCHA">
+		<groupExpression><![CDATA[$F{CODTYPCHA}]]></groupExpression>
+	</group>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="420" height="79" uuid="ee174777-44df-4ea7-996f-f7b26b686e77"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[Rapport des Chambre]]></text>
+			</staticText>
+			<textField pattern="dd MMMM, yyyy">
+				<reportElement x="450" y="49" width="100" height="30" uuid="b1ebc4b1-a177-4a6a-87c1-ac8e14a5b99f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="140" height="54" uuid="6608ae69-081b-44d2-8fb3-15f7adf7a91d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA["src/elementsGraphiques/Images/BATeam.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="510" y="12" width="40" height="30" uuid="65826e4c-dcce-44be-9f37-b2094177908c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="470" y="12" width="40" height="30" uuid="4f08762b-7525-431f-b0c2-0791fef5a6bc"/>
+				<text><![CDATA[Page : ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<textField pattern="MM-dd">
+				<reportElement x="80" y="10" width="40" height="30" uuid="3d91d26e-4255-4692-b433-7d5ef7da6da5">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="150" y="10" width="40" height="30" uuid="f22539f4-e728-4579-9810-ba02c76d0e94">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="230" y="10" width="40" height="30" uuid="5e8b4097-152f-4077-9759-f7dafb388dbd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="300" y="10" width="40" height="30" uuid="c885a87a-0572-46bb-95b8-e19eb4a1c63f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="370" y="10" width="40" height="30" uuid="5015832c-4840-4c9f-b773-5590ad117e00">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="440" y="9" width="40" height="30" uuid="81bfe738-85de-44d1-8df6-b3bbb62ef2db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE6}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM-dd">
+				<reportElement x="520" y="10" width="40" height="30" uuid="62a3cb0f-933e-42f5-bcea-08916b30a51f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DATE7}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="10" width="40" height="30" uuid="8e25403c-ac0c-47fa-a177-b3ab4b1b957c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="40" height="30" uuid="85da731f-b53a-457f-a126-5ab91214212a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CODTYPCHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="10" width="36" height="30" uuid="5faae21f-a4a6-452a-a61c-52d3895aa4cc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NOCHAM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="9" width="40" height="30" uuid="6bde46fd-f38c-42e3-9435-d838e57d5af6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="9" width="40" height="30" uuid="e4b383be-315f-43fd-bbdb-b8a4cb3297ce">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="10" width="40" height="30" uuid="7b0a6122-36ca-4c12-81b0-201cad19e96d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="10" width="40" height="30" uuid="0568af47-1145-4d07-877e-1bf9a7e4d9c6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="9" width="40" height="30" uuid="722f2d0b-dd40-41d8-9582-30f2633d6016">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="9" width="40" height="30" uuid="7bfdb00e-7312-4da4-ae39-c14ee3810dd5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DISPO7}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="174">
+			<image>
+				<reportElement x="395" y="30" width="155" height="144" uuid="99ded13d-ba1a-4fb3-afef-31e98984d329">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA["src/elementsGraphiques/Images/potato.png"]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+</jasperReport>

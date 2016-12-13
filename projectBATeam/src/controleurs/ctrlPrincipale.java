@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import modeles.modConnexion;
 import windows.winArriver;
+import windows.winChambre;
 import windows.winDepart;
 import windows.winPrincipale;
 
@@ -19,9 +20,9 @@ public class ctrlPrincipale {
 	public  void ActionBtn(int bouton)
 	{
 		switch (bouton)
-		   { case 1 :  	//winChambre fenChambre = new winChambre();
-		   			   	//fenChambre.setVisible(true);
-		   			   	//fenetre.dispose();
+		   { case 1 :  	winChambre fenChambre = new winChambre();
+		   			   	fenChambre.setVisible(true);
+		   			   	fenetre.dispose();
 			           	break;
 		     case 2 : 	JOptionPane.showMessageDialog(null, "La gestion des clients est en construction","En cours de développement...",JOptionPane.PLAIN_MESSAGE);
 		     		  	break;

@@ -155,9 +155,9 @@ public class DatePicker extends JPanel {
     }
 
     public String getFormattedDate() {
-        return Integer.toString(getMonth()) + "/" + 
-            Integer.toString(getDay()) + "/" +
-            Integer.toString(getYear());
+        return Integer.toString(getYear())+"-"+
+            Integer.toString(getMonth()) + "-" +
+            Integer.toString(getDay());
     }
 
     public int getMonth() {
