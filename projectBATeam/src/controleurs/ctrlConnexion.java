@@ -21,7 +21,7 @@ public class ctrlConnexion {
 		
 	    try {
 	       
-	  	    modConnexion.getInstance().connexion("EQU03PRG01","j33965");   	
+	  	    modConnexion.getInstance().connexion("EQU03GERANT","j99865");   	
 	       	
 	       	//testConnexion();
 	       	
