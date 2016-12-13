@@ -11,7 +11,7 @@ drop table TYPTRX cascade constraints;
 drop table TRX cascade constraints;
 drop table ARRIVE cascade constraints;
 
---------------------------------------------------------------
+
 --CLIENT
 --------------------------------------------------------------
 --SEQUENCE RESET
@@ -221,7 +221,6 @@ GRANT ALL on TYPECHAM to EQU03PRG02, EQU03PRG03;
 GRANT ALL on CHAMBRE to EQU03PRG02, EQU03PRG03;
 GRANT ALL on LOCALISATION to EQU03PRG02, EQU03PRG03;
 GRANT ALL on DEPART to EQU03PRG02, EQU03PRG03;
-
 --------------------------------------------------------------
 --COMMIT
 --------------------------------------------------------------

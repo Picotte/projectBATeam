@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-12-13T09:56:56 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapportArrive" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83733a2e-b1af-4d85-8923-42efda96c3bf">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString>
+		<![CDATA[select r.Idreser, r.DATERESER, r.DATEDEBUT, r.DATEFIN, nc.NOCHAM, ch.CODTYPCHA, nc.IDCLI, nc.nom
+from EQU03PRG01.reservation r, EQU03PRG01.chambre ch, (select d.IDRESER, d.NOCHAM, nb.nom, nb.IDCLI 
+                                from  EQU03PRG01.de d
+                                full outer join ( select a.NOCHAM, a.IDCLI, a.IDRESER, c.nom  from EQU03PRG01.ARRIVE a, EQU03PRG01.client c
+                                                  where a.IDCLI=c.IDCLI order by a.IDRESER
+                                                ) nb
+                                on d.IDRESER=nb.IDRESER and d.NOCHAM=nb.NOCHAM) nc
+where r.IDRESER=nc.IDRESER and ch.NOCHAM=nc.NOCHAM and sysDate between r.DateDebut and r.DateFin order by r.idreser, nc.NOCHAM]]>
+	</queryString>
+	<field name="IDRESER" class="java.math.BigDecimal"/>
+	<field name="DATERESER" class="java.sql.Timestamp"/>
+	<field name="DATEDEBUT" class="java.sql.Timestamp"/>
+	<field name="DATEFIN" class="java.sql.Timestamp"/>
+	<field name="NOCHAM" class="java.lang.String"/>
+	<field name="CODTYPCHA" class="java.lang.String"/>
+	<field name="IDCLI" class="java.math.BigDecimal"/>
+	<field name="NOM" class="java.lang.String"/>
+	<group name="IDRESER">
+		<groupExpression><![CDATA[$F{IDRESER}]]></groupExpression>
+		<groupHeader>
+			<band height="44">
+				<textField>
+					<reportElement x="49" y="12" width="100" height="30" uuid="a6721e73-b7ff-4e9f-9010-a1802b0127c0"/>
+					<textFieldExpression><![CDATA[$F{IDRESER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="yyyy/MM/dd">
+					<reportElement x="159" y="12" width="100" height="30" uuid="00949c9c-d57d-4288-a6e5-f27f420cb3d4"/>
+					<textFieldExpression><![CDATA[$F{DATERESER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="yyyy/MM/dd">
+					<reportElement x="269" y="12" width="100" height="30" uuid="0e84c5b4-b3d8-4eea-aa08-fe25010eb277"/>
+					<textFieldExpression><![CDATA[$F{DATEDEBUT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="yyyy/MM/dd">
+					<reportElement x="379" y="12" width="100" height="30" uuid="69f43fad-a768-4dbd-92ad-874c686001cb"/>
+					<textFieldExpression><![CDATA[$F{DATEFIN}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="NOCHAM">
+		<groupExpression><![CDATA[$F{NOCHAM}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="6" width="284" height="30" uuid="eecdf5cc-39ec-4b95-bf14-5346e553ad06"/>
+				<textElement>
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[LISTE DES ARRIVEES PREVUS]]></text>
+			</staticText>
+			<textField pattern="dd MMMM, yyyy">
+				<reportElement x="454" y="8" width="100" height="30" uuid="a8db15b6-4a0a-4c0c-9e9a-26630f83007e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="426" y="8" width="100" height="30" uuid="49b897a2-e629-4b05-a8ce-73058ec1090c"/>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="45" width="100" height="30" uuid="c073a6c4-f900-4a36-872a-f83b67ee1a6f"/>
+				<text><![CDATA[#Folio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="45" width="100" height="30" uuid="ca1a0092-1802-4478-a46c-77302936b5f7"/>
+				<text><![CDATA[Date Reservation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="45" width="100" height="30" uuid="bda0e7cc-4762-453c-a10b-7e62e2a023f2"/>
+				<text><![CDATA[Date Debut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="45" width="100" height="30" uuid="6e087c7f-f8e6-4866-b22f-86b0366ce441"/>
+				<text><![CDATA[Date Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="80" width="100" height="30" uuid="551ed23e-7606-417d-b5d2-db41a3954fec"/>
+				<text><![CDATA[#Chambre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="80" width="100" height="30" uuid="027f1ad7-9a25-463a-852b-c14a890be6b2"/>
+				<text><![CDATA[CODTYPCHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="80" width="100" height="30" uuid="6fbc2b2b-55ac-4834-8fc5-e4c1fc7faa66"/>
+				<text><![CDATA[IDCLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="80" width="100" height="30" uuid="e12266de-161d-4455-a1e4-e533fb226457"/>
+				<text><![CDATA[NOM]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="454" y="11" width="100" height="30" uuid="07bec784-3e5b-4665-8535-21d84d063b2d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="425" y="11" width="100" height="30" uuid="1a99b9d4-5bcf-486b-a8b9-be3192a0ccad"/>
+				<text><![CDATA[Page:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField evaluationTime="Group" evaluationGroup="NOCHAM">
+				<reportElement x="100" y="10" width="100" height="30" uuid="752b9e81-0e53-4a84-bc80-36196a07e59b"/>
+				<textFieldExpression><![CDATA[$F{NOCHAM}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="NOCHAM">
+				<reportElement x="210" y="10" width="100" height="30" uuid="e6dc6160-c839-4b2e-969e-89672664ad68"/>
+				<textFieldExpression><![CDATA[$F{CODTYPCHA}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="NOCHAM" isBlankWhenNull="true">
+				<reportElement x="320" y="10" width="100" height="30" uuid="7d1f4ea5-1ee6-4e6e-8102-5d85798c35a6"/>
+				<textFieldExpression><![CDATA[$F{IDCLI}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="NOCHAM" isBlankWhenNull="true">
+				<reportElement x="430" y="10" width="100" height="30" uuid="afaa9cad-e1e8-4d5b-8b86-a769155d778c"/>
+				<textFieldExpression><![CDATA[$F{NOM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="150">
+			<image>
+				<reportElement x="396" y="7" width="153" height="143" uuid="ad443fc0-e248-4769-9dcc-a98f5856aaba"/>
+				<imageExpression><![CDATA["src/elementsGraphiques/Images/potato.png"]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+</jasperReport>
