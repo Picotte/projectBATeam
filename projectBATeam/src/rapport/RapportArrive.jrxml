@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-08T14:09:05 -->
+<!-- 2016-12-13T09:56:56 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapportArrive" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83733a2e-b1af-4d85-8923-42efda96c3bf">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<queryString>
 		<![CDATA[select r.Idreser, r.DATERESER, r.DATEDEBUT, r.DATEFIN, nc.NOCHAM, ch.CODTYPCHA, nc.IDCLI, nc.nom
-from reservation r, chambre ch, (select d.IDRESER, d.NOCHAM, nb.nom, nb.IDCLI 
-                                from  de d
-                                full outer join ( select a.NOCHAM, a.IDCLI, a.IDRESER, c.nom  from ARRIVE a, client c
+from EQU03PRG01.reservation r, EQU03PRG01.chambre ch, (select d.IDRESER, d.NOCHAM, nb.nom, nb.IDCLI 
+                                from  EQU03PRG01.de d
+                                full outer join ( select a.NOCHAM, a.IDCLI, a.IDRESER, c.nom  from EQU03PRG01.ARRIVE a, EQU03PRG01.client c
                                                   where a.IDCLI=c.IDCLI order by a.IDRESER
                                                 ) nb
                                 on d.IDRESER=nb.IDRESER and d.NOCHAM=nb.NOCHAM) nc
@@ -30,15 +30,15 @@ where r.IDRESER=nc.IDRESER and ch.NOCHAM=nc.NOCHAM and sysDate between r.DateDeb
 					<reportElement x="49" y="12" width="100" height="30" uuid="a6721e73-b7ff-4e9f-9010-a1802b0127c0"/>
 					<textFieldExpression><![CDATA[$F{IDRESER}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="yyyy/MM/dd">
 					<reportElement x="159" y="12" width="100" height="30" uuid="00949c9c-d57d-4288-a6e5-f27f420cb3d4"/>
 					<textFieldExpression><![CDATA[$F{DATERESER}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="yyyy/MM/dd">
 					<reportElement x="269" y="12" width="100" height="30" uuid="0e84c5b4-b3d8-4eea-aa08-fe25010eb277"/>
 					<textFieldExpression><![CDATA[$F{DATEDEBUT}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="yyyy/MM/dd">
 					<reportElement x="379" y="12" width="100" height="30" uuid="69f43fad-a768-4dbd-92ad-874c686001cb"/>
 					<textFieldExpression><![CDATA[$F{DATEFIN}]]></textFieldExpression>
 				</textField>
@@ -60,7 +60,7 @@ where r.IDRESER=nc.IDRESER and ch.NOCHAM=nc.NOCHAM and sysDate between r.DateDeb
 				</textElement>
 				<text><![CDATA[LISTE DES ARRIVEES PREVUS]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
+			<textField pattern="dd MMMM, yyyy">
 				<reportElement x="454" y="8" width="100" height="30" uuid="a8db15b6-4a0a-4c0c-9e9a-26630f83007e"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>

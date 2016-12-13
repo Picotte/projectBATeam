@@ -33,16 +33,19 @@ public final class RapportLaucher {
 									+ "src" + PathRapportHelper.getSeparateur()
 									+ "rapport" + PathRapportHelper.getSeparateur();
 	
-	public static void chargeEtcompile(String rapport)
+	/**
+	 * 
+	 * @param rapport
+	 */
+	public static void chargeEtcompile(String rapport, HashMap<String, Object> a)
 	{ 		
 		try
 		{   
 		  design = JRXmlLoader.load(chemin	+ rapport);
 		  report = JasperCompileManager.compileReport(design);
 		
-		  HashMap<String, Object> mesParametres = new HashMap<String,Object>();
-		  //mesParametres.put("Date1", convertirChaineEnDateJava("2008-10-01"));
-		  //mesParametres.put("Date2", convertirChaineEnDateJava("2008-10-31"));
+		  HashMap<String, Object> mesParametres = a;
+
 	
 		 //Affichage du rapport
 		  print = JasperFillManager.fillReport(report, mesParametres, laConnexion);
@@ -74,9 +77,9 @@ public final class RapportLaucher {
 }
 		
 	
-	public static void apercu(String rapport)
+	public static void apercu(String rapport, HashMap<String,Object> a)
 	{
-		chargeEtcompile(rapport);
+		chargeEtcompile(rapport,a);
 		try
 		{
 			JasperViewer.viewReport(print,false);
