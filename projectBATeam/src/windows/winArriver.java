@@ -55,6 +55,7 @@ public class winArriver extends winHeritage {
 	private winArriver instance;
 	private ctrlArrive ctrlArr = null;
 	private JButton btnPickList;
+	private JMenuItem mntmRapportDesArrivees;
 
 
 	public JTextField getTextFieldClientNo() {
@@ -182,6 +183,8 @@ public class winArriver extends winHeritage {
 		
 		
 		
+		
+		
 		Setup();
 		ctrlArr = new ctrlArrive(instance);
 		
@@ -250,7 +253,7 @@ public class winArriver extends winHeritage {
 		mnRapports.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlArr.rapport(instance);
+				
 			}
 		});
 		mnListes.addMouseListener(new MouseAdapter() {
@@ -406,6 +409,15 @@ public class winArriver extends winHeritage {
 		scrollPaneZoneN = new JScrollPane();
 		scrollPaneZoneN.setBounds(176, 392, 938, 235);
 		getContentPane().add(scrollPaneZoneN);
+		
+		mntmRapportDesArrivees = new JMenuItem("Rapport des Arrivees");
+		mnRapports.add(mntmRapportDesArrivees);
+		mntmRapportDesArrivees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ctrlArr.rapport(instance);
+			}
+		});
+		
 		
 		
 		
