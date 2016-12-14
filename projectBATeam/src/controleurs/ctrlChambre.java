@@ -37,6 +37,7 @@ public class ctrlChambre {
 	private Model modValide;
 	private Model newChambreCodCom;
 	private int position = 0;
+	private int positionPickList = 0;
 	public Model modeleAyant = null;
 	public modListAyant modeleListAyant = null;
 	public ctrlChambre(winChambre instance) {
@@ -83,6 +84,7 @@ public class ctrlChambre {
 	}
 	public void Premier(winChambre instance) {
 		 position = 0;
+	     System.out.println(position);
 	     AffecteValeurs(instance,position);		
 	}
 	public void BonPrecedent(winChambre instance) {
@@ -90,10 +92,12 @@ public class ctrlChambre {
 			position--;
 		else position= modeleChambre.getLesEnreg().size()-1;
 		modeleChambre.setCourant((int)modeleChambre.getValueAt(position, 0));
+	     System.out.println(position);
 		AffecteValeurs(instance,position);	
 	}
 	public void Dernier(winChambre instance) {
 		position = modeleChambre.getLesEnreg().size()-1;
+	     System.out.println(position);
 	     AffecteValeurs(instance,position);		
 	}
 	public void BonSuivant(winChambre instance) {
@@ -101,6 +105,7 @@ public class ctrlChambre {
 			 position++;
 		else position = 0;
 		modeleChambre.setCourant((int)modeleChambre.getValueAt(position, 0));
+	     System.out.println(position);
 		AffecteValeurs(instance,position);		
 	}
 	public void ListeChambres (winChambre instance, Boolean AjoutActive){   
@@ -108,12 +113,12 @@ public class ctrlChambre {
 		AffecteValeurs(instance, position);	
 	}
 	public void ListeCodType (winChambre instance, Boolean AjoutActive){
-		position = winPickList.pickFromTable(new modListCodeType(),"listes des type de chambre");
-		AffecteValeursType(instance, position);	
+		positionPickList = winPickList.pickFromTable(new modListCodeType(),"listes des type de chambre");
+		AffecteValeursType(instance, positionPickList);	
 	}
 	public void ListeCodLocalisation (winChambre instance, Boolean AjoutActive){
-		position = winPickList.pickFromTable(new modListCodeLocalisation(),"listes des code de Localisation");
-		AffecteValeursLocalisation(instance, position);	
+		positionPickList = winPickList.pickFromTable(new modListCodeLocalisation(),"listes des code de Localisation");
+		AffecteValeursLocalisation(instance, positionPickList);	
 	}
 	public boolean getChckbxEnEtatSelected(winChambre instance) {
 		return instance.chckbxEnEtat.isSelected();
@@ -158,8 +163,7 @@ public class ctrlChambre {
 	            errors.add("Le numero de chambre est deja pris\n");
 	        }
 	        else{
-	        	System.out.println(matcherNoCham);
-	            System.out.println("Trouvé !");
+
 	        }
         }
 	    else
@@ -168,8 +172,7 @@ public class ctrlChambre {
 	    }
         
         if(matcherEtage.find()) {
-        	System.out.println(matcherEtage);
-            System.out.println("Trouvé !");
+
 
         }
         else{
@@ -177,7 +180,6 @@ public class ctrlChambre {
         }
         
         if(matcherPrix.find()) {
-        	System.out.println(matcherPrix);
 
         }
         else{
@@ -185,7 +187,6 @@ public class ctrlChambre {
         }
         
         if(matcherMemo.find()) {
-        	System.out.println(matcherMemo);
 
         }
         else{
@@ -216,13 +217,11 @@ public class ctrlChambre {
 			if(!procsE02.INSERT_CHAMBRE(instance.getTxtNoChambre().getText(),instance.getTxtEtage().getText(),Prix,Etat,instance.getTxtCodTypeCha().getText(),instance.getTxtCodLoc().getText(),instance.getTxtMemo().getText()))
 			{
 				succes = false;
-        		System.out.println("j'ai erreure chambre");
 			}
 			for(int i = 0; i < newChambreCodCom.getRowCount() ; i++)
 			{
 				if(!procsE02.INSERT_AYANT(instance.getTxtNoChambre().getText(),newChambreCodCom.getValueAt(i,0).toString()))
 				{
-	        		System.out.println("j'ai erreure ayant");
 					succes = false;
 				}
 			}
@@ -230,7 +229,6 @@ public class ctrlChambre {
 			{
 				if(!procsE02.UPDATE_ADDTYPECHAM(instance.getTxtCodTypeCha().getText()))
 				{
-	        		System.out.println("j'ai erreure type chambre");
 					succes = false;
 				}
 			}
@@ -306,8 +304,11 @@ public class ctrlChambre {
 		newChambreCodCom = modeleAyant;
 	}
 	public void modifier(winChambre instance) {
+	     System.out.println(position);
+
   		if(!(procsE02.SELECT_DE().contains(instance.getTxtNoChambre().getText(),1)))
 		{
+  			
         	boolean succes = true;
         	ArrayList<String> errors = new ArrayList<String>();
     		
@@ -319,12 +320,11 @@ public class ctrlChambre {
             matcherNoCham = patternNoCham.matcher(instance.getTxtNoChambre().getText());
             matcherEtage = patternEtage.matcher(instance.getTxtEtage().getText());
             matcherPrix = patternPrix.matcher(instance.getTxtPrix().getText());
-             matcherMemo = patternMemo.matcher(instance.getTxtMemo().getText());
+            matcherMemo = patternMemo.matcher(instance.getTxtMemo().getText());
 
             if(matcherNoCham.find())
             {
-      	        System.out.println(matcherNoCham);
-    	        System.out.println("Trouvé !");
+
             }
     	    else
     	    {
@@ -332,8 +332,7 @@ public class ctrlChambre {
     	    }
             
             if(matcherEtage.find()) {
-            	System.out.println(matcherEtage);
-                System.out.println("Trouvé !");
+
 
             }
             else{
@@ -341,7 +340,6 @@ public class ctrlChambre {
             }
             
             if(matcherPrix.find()) {
-            	System.out.println(matcherPrix);
 
             }
             else{
@@ -349,7 +347,6 @@ public class ctrlChambre {
             }
             
             if(matcherMemo.find()) {
-            	System.out.println(matcherMemo);
 
             }
             else{
@@ -377,7 +374,7 @@ public class ctrlChambre {
             	float Prix = Float.valueOf(instance.getTxtPrix().getText());
             	int Etat = Integer.parseInt(instance.getTxtEtat().getText());
             
-            	//position = Integer.parseInt(instance.getTxtNoChambre().getText().toString());
+       	     System.out.println(position);
              	if(procsE02.DELETE_AYANT(modeleChambre.getValueAt(position, 0).toString()) && procsE02.DELETE_CHAMBRE(modeleChambre.getValueAt(position, 0).toString()))
     			{
     				if(instance.chckbxEnEtat.isSelected())

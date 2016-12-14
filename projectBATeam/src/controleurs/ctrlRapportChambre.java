@@ -70,13 +70,13 @@ public class ctrlRapportChambre {
 			//construit le rapport
 			//pour chacune des chambre de tablerapport
 			for(int i = 0 ; i < chambres.getRowCount();i++){
-				Query selectDe = new Query("select * from de where ? = de.nocham");
+				Query selectDe = new Query("select * from EQU03PRG01.de where ? = EQU03PRG01.de.nocham");
 				de = selectDe.execute(chambres.getValueAt(i, 0));
 
 
 				//pour chacun des DE de cette chambre
 				for(int j = 0 ; j < de.getRowCount();j++){
-					Query selectReser = new Query("select * from reservation where ? = reservation.IDRESER");
+					Query selectReser = new Query("select * from EQU03PRG01.reservation where ? = EQU03PRG01.reservation.IDRESER");
 					reser = selectReser.execute(de.getValueAt(j, 0));
 					
 					//pour chacune des date
@@ -95,7 +95,7 @@ public class ctrlRapportChambre {
 								System.out.println("compareDateDebut : " + min + " compareDateFin : " + max);
 							}
 							try {    
-								PreparedStatement query = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("UPDATE tablerapport SET tablerapport.dispo"+ (k+1) +" = 0 WHERE tablerapport.nocham = ?");
+								PreparedStatement query = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("UPDATE EQU03PRG01.tablerapport SET EQU03PRG01.tablerapport.dispo"+ (k+1) +" = 0 WHERE EQU03PRG01.tablerapport.nocham = ?");
 								query.setObject(1,chambres.getValueAt(i, 0));
 								query.executeQuery();
 								
@@ -124,14 +124,14 @@ public class ctrlRapportChambre {
 			
 			//on drop les tables
 			try {    
-				PreparedStatement state = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("delete from dateRapport");
+				PreparedStatement state = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("delete from EQU03PRG01.dateRapport");
 				state.executeQuery();
 				} catch (SQLException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
 					System.out.println("problem avec drop table dateRapport");
 				}
 			try {    
-				PreparedStatement state = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("delete from tableRapport");
+				PreparedStatement state = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("delete from EQU03PRG01.tableRapport");
 				state.executeQuery();
 				} catch (SQLException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
@@ -164,7 +164,7 @@ public class ctrlRapportChambre {
 		*/
 			//insert into dateRapport with the first Date
 			try {    
-				CallableStatement  query = modConnexion.getInstance().getLaConnectionStatique().prepareCall("{call CreateRapportTable(?)}");
+				CallableStatement  query = modConnexion.getInstance().getLaConnectionStatique().prepareCall("{call EQU03PRG01.CreateRapportTable(?)}");
 					query.setObject(1,window.TBoxDate().getText());
 				query.executeUpdate();
 			} catch (SQLException e) {
@@ -185,13 +185,13 @@ public class ctrlRapportChambre {
 			}
 		*/
 			//aller chercher toute les chambre en etat
-		Query selectChambre = new Query("select * from chambre where chambre.etat = 1");
+		Query selectChambre = new Query("select * from EQU03PRG01.chambre where chambre.etat = 1");
 		chambres = selectChambre.execute();
 		
 		//pour chacune des chambre on fait un insert dans tableRapport avec son numero et son type ainsi que 7 boolean a true
 		for(int i = 0 ; i < chambres.getRowCount();i++){
 			try {    
-				PreparedStatement query = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("insert into tableRapport values(?,?,1,1,1,1,1,1,1)");
+				PreparedStatement query = modConnexion.getInstance().getLaConnectionStatique().prepareStatement("insert into EQU03PRG01.tableRapport values(?,?,1,1,1,1,1,1,1)");
 				query.setObject(1,chambres.getValueAt(i, 0));
 				query.setObject(2,chambres.getValueAt(i, 4));
 				query.executeQuery();
