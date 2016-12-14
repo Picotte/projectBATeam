@@ -21,7 +21,7 @@ public class ctrlConnexion {
 		
 	    try {
 	       
-	  	    modConnexion.getInstance().connexion(nomUsager,mdp);   	
+	  	    modConnexion.getInstance().connexion(nomUsager,mdp);
 	       	
 	       	//testConnexion();
 	       	
